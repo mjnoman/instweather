@@ -1,6 +1,7 @@
--Setup login/register/logout/deleteaccount routes
+-Setup deleteaccount routes
 -Setup addCity/removeCity/changecityorder routes
 -Setup getCity route
 -Setup weather components
 -Style components
 -Setup db models for cities and icons
+-Safely store passwords

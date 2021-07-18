@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Grid, Segment, Button } from "semantic-ui-react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 
 function User(props) {
@@ -13,6 +13,8 @@ function User(props) {
   });
   const loggingIn =
     localStorage.getItem("loggingIn") || props.location.state.loggingIn;
+  const history = useHistory();
+
   return (
     <div>
       <Segment>
@@ -58,9 +60,17 @@ function User(props) {
               <Button
                 onClick={async () => {
                   const res = await axios.post(
-                    "http://localhost:5000/users/login"
+                    "http://localhost:5000/api/user/login",
+                    user
                   );
                   console.log(res);
+                  if (res.status === 200) {
+                    localStorage.setItem(
+                      "user",
+                      JSON.stringify(res.data.result)
+                    );
+                    history.push("/");
+                  }
                 }}
               >
                 Login
@@ -70,9 +80,16 @@ function User(props) {
               <Button
                 onClick={async () => {
                   const res = await axios.post(
-                    "http://localhost:5000/users/register"
+                    "http://localhost:5000/api/user/register",
+                    user
                   );
                   console.log(res);
+                  if (res.status === 200) {
+                    history.push({
+                      pathname: "/login",
+                      state: { loggingIn: true },
+                    });
+                  }
                 }}
               >
                 Register
