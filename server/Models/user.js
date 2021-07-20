@@ -4,7 +4,7 @@ const userSchema = new mongoose.Schema({
   email: { type: String, require: true, unique: true },
   name: { type: String, requrie: true },
   password: { type: String, require: true },
-  cities: { type: Array, require: false },
+  cities: [String],
 });
 
 userSchema.statics.findByEmail = async (userInfo) => {
